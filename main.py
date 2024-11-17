@@ -1,23 +1,30 @@
 import asyncio
 
 from tellrcon import TellRCon
-from api.sfs_colorama import TextColor
+from logger import Logger
 
-IP: str = str(input("Enter IP address of RCON >> "))
-PORT: int = int(input("Enter port of RCON >> "))
-PASSWORD: str = str(input("Enter password of RCON >> "))
-COMMAND: str = str(input("Enter command >> "))
+IP = str(input("Enter IP address of RCON >> "))
+PORT = int(input("Enter port of RCON >> "))
+PASSWORD = str(input("Enter password of RCON >> "))
+COMMAND = str(input("Enter command >> "))
 
-ask = TellRCon(IP, PORT, PASSWORD)
-ask.add_command(COMMAND)
+
+LOG = Logger()
+
+rcon = TellRCon(IP, PORT, PASSWORD)
+rcon.set_command(COMMAND)
 
 if __name__ == '__main__':
-    try:
-        print(asyncio.run(ask.ask_rcon()))
-    except:
-        print(f"{TextColor.RED}Connection error{TextColor.DEFAULT}")
+    err: bool = False
 
-    while True:
-        COMMAND: str = str(input("Enter command >> "))
-        ask.add_command(COMMAND)
-        print(asyncio.run(ask.ask_rcon()))
+    try:
+        LOG.info(asyncio.run(rcon.ask_rcon()))
+    except:
+        LOG.fatal("Connection error")
+        err = True
+
+    if err is False:
+        while True:
+            COMMAND = str(input("Enter command >> "))
+            rcon.set_command(COMMAND)
+            LOG.info(asyncio.run(rcon.ask_rcon()))
