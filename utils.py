@@ -1,29 +1,33 @@
 from api.sfs_colorama import TextColor, TextStyle
 
 
+mc_colors = {
+    "§0": TextColor.BLACK,
+    "§1": TextColor.BLUE,
+    "§2": TextColor.GREEN,
+    "§3": TextColor.CYAN,
+    "§4": TextColor.RED,
+    "§5": TextColor.MAGENTA,
+    "§6": TextColor.YELLOW,
+    "§7": TextColor.LIGHT_GRAY,
+    "§8": TextColor.DEFAULT,
+    "§9": TextColor.LIGHT_BLUE,
+
+    "§a": TextColor.LIGHT_GREEN,
+    "§b": TextColor.LIGHT_CYAN,
+    "§c": TextColor.LIGHT_RED,
+    "§d": TextColor.LIGHT_MAGENTA,
+    "§e": TextColor.LIGHT_YELLOW,
+    "§f": TextColor.WHITE,
+
+    "§l": TextStyle.BOLD,
+    "§n": TextStyle.UNDERLINE,
+    "§r": TextStyle.OFF_ALL_STYLES,
+}
+
+
 def mc_formating(text: str) -> str:
-    return (text
-            .replace("§0", TextColor.BLACK)
-            .replace("§1", TextColor.BLUE)
-            .replace("§2", TextColor.GREEN)
-            .replace("§3", TextColor.CYAN)
-            .replace("§4", TextColor.RED)
-            .replace("§5", TextColor.MAGENTA)
-            .replace("§6", TextColor.YELLOW)
-            .replace("§7", TextColor.LIGHT_GRAY)
-            .replace("§8", TextColor.DEFAULT)
-            .replace("§9", TextColor.LIGHT_BLUE)
+    for key, value in mc_colors.items():
+        text = text.replace(key, value)
 
-            .replace("§a", TextColor.LIGHT_GREEN)
-            .replace("§b", TextColor.LIGHT_CYAN)
-            .replace("§c", TextColor.LIGHT_RED)
-            .replace("§d", TextColor.LIGHT_MAGENTA)
-            .replace("§e", TextColor.LIGHT_YELLOW)
-            .replace("§f", TextColor.WHITE)
-
-            .replace("§l", TextStyle.BOLD)
-            .replace("§n", TextStyle.UNDERLINE)
-            .replace("§r", TextStyle.OFF_ALL_STYLES)
-
-            + TextColor.DEFAULT
-            + TextStyle.OFF_ALL_STYLES)
+    return text + TextColor.DEFAULT + TextStyle.OFF_ALL_STYLES

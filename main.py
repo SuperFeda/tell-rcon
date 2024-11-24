@@ -2,19 +2,20 @@ import asyncio
 
 from tellrcon import TellRCon
 from logger import Logger
-
-IP = str(input("Enter IP address of RCON >> "))
-PORT = int(input("Enter port of RCON >> "))
-PASSWORD = str(input("Enter password of RCON >> "))
-COMMAND = str(input("Enter command >> "))
+from utils import mc_formating
 
 
-LOG = Logger()
+def main():
+    IP = str(input("Enter IP address of RCON >> "))
+    PORT = int(input("Enter port of RCON >> "))
+    PASSWORD = str(input("Enter password of RCON >> "))
+    COMMAND = str(input("Enter command >> "))
 
-rcon = TellRCon(IP, PORT, PASSWORD)
-rcon.set_command(COMMAND)
+    LOG = Logger()
 
-if __name__ == '__main__':
+    rcon = TellRCon(IP, PORT, PASSWORD)
+    rcon.set_command(COMMAND)
+    
     err: bool = False
 
     try:
@@ -27,4 +28,8 @@ if __name__ == '__main__':
         while True:
             COMMAND = str(input("Enter command >> "))
             rcon.set_command(COMMAND)
-            LOG.info(asyncio.run(rcon.ask_rcon()))
+            LOG.info(mc_formating(asyncio.run(rcon.ask_rcon())))
+
+
+if __name__ == '__main__':
+    main()
