@@ -1,7 +1,7 @@
 from api.sfs_colorama import TextColor, TextStyle
 
 
-mc_colors = {
+mc_colors: dict = {
     "§0": TextColor.BLACK,
     "§1": TextColor.BLUE,
     "§2": TextColor.GREEN,

@@ -3,7 +3,6 @@ from api.sfs_colorama import TextColor
 
 class Logger:
     def __init__(self):
-        super().__init__()
         self.default_color = TextColor.DEFAULT
 
     def info(self, message: str, sep: str = " ", end: str = "\n") -> None:

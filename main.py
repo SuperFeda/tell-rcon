@@ -1,6 +1,6 @@
 import asyncio
 
-from tellrcon import TellRCon
+from myrcon import MyRCon
 from logger import Logger
 from utils import mc_formating
 
@@ -12,14 +12,12 @@ def main():
     COMMAND = str(input("Enter command >> "))
 
     LOG = Logger()
-
-    rcon = TellRCon(IP, PORT, PASSWORD)
-    rcon.set_command(COMMAND)
+    RCON = MyRCon(IP, PORT, PASSWORD)
     
     err: bool = False
 
     try:
-        LOG.info(asyncio.run(rcon.ask_rcon()))
+        LOG.info(asyncio.run(RCON.ask(COMMAND)))
     except:
         LOG.fatal("Connection error")
         err = True
@@ -27,8 +25,7 @@ def main():
     if err is False:
         while True:
             COMMAND = str(input("Enter command >> "))
-            rcon.set_command(COMMAND)
-            LOG.info(mc_formating(asyncio.run(rcon.ask_rcon())))
+            LOG.info(mc_formating(asyncio.run(RCON.ask(COMMAND))))
 
 
 if __name__ == '__main__':
